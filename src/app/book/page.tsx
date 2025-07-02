@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, FileUp } from "lucide-react";
 import "../globals.css";
-
+  
 const services = [
   {
     category: "Haematology",
