@@ -7,7 +7,6 @@ import Link from "next/link";
 import {
   FlaskConical,
   HeartPulse,
-  Syringe,
   Microscope,
   TestTube,
   ShieldCheck,

@@ -216,16 +216,27 @@ const services = [
   },
 ];
 
+interface FormData {
+  name: string;
+  age: string;
+  gender: string;
+  contact: string;
+  tests: string[];
+  date: string;
+  time: string;
+  fileName: string | null;
+}
 
 const BookPage = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     age: "",
     gender: "",
     contact: "",
-    tests: [] as string[],
+    tests: [],
     date: "",
     time: "",
+    fileName: null,
   });
 
   const [file, setFile] = useState<File | null>(null);
@@ -264,12 +275,13 @@ const BookPage = () => {
       tests: [],
       date: "",
       time: "",
+      fileName: null,
     });
     setFile(null);
     setSubmitted(false);
   };
 
-  const submitToGoogleSheets = async (formData: any) => {
+  const submitToGoogleSheets = async (formData: FormData) => {
     try {
       const response = await fetch("/api/submit-form", {
         method: "POST",
