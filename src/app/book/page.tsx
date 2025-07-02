@@ -216,6 +216,8 @@ const services = [
   },
 ];
 
+const FORM_STORAGE_KEY = 'appointmentFormData';
+
 interface FormData {
   name: string;
   age: string;
@@ -228,16 +230,39 @@ interface FormData {
 }
 
 const BookPage = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    age: "",
-    gender: "",
-    contact: "",
-    tests: [],
-    date: "",
-    time: "",
-    fileName: null,
+  const [formData, setFormData] = useState<FormData>(() => {
+    // Load saved form data from localStorage if it exists
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(FORM_STORAGE_KEY);
+      return saved ? JSON.parse(saved) : {
+        name: "",
+        age: "",
+        gender: "",
+        contact: "",
+        tests: [],
+        date: "",
+        time: "",
+        fileName: null,
+      };
+    }
+    return {
+      name: "",
+      age: "",
+      gender: "",
+      contact: "",
+      tests: [],
+      date: "",
+      time: "",
+      fileName: null,
+    };
   });
+
+  // Save form data to localStorage whenever it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(formData));
+    }
+  }, [formData]);
 
   const [file, setFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -262,7 +287,13 @@ const BookPage = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      // Check file size (10MB max)
+      if (selectedFile.size > 10 * 1024 * 1024) {
+        alert('File size should be less than 10MB');
+        return;
+      }
+      setFile(selectedFile);
     }
   };
 
@@ -279,6 +310,10 @@ const BookPage = () => {
     });
     setFile(null);
     setSubmitted(false);
+    // Clear saved form data from localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(FORM_STORAGE_KEY);
+    }
   };
 
   const submitToGoogleSheets = async (formData: FormData) => {
@@ -422,6 +457,9 @@ const BookPage = () => {
                 )}
               </div>
 
+              <label className="block font-semibold mb-2 text-blue-700">
+                Select Date and Time
+              </label>
               <input
                 type="date"
                 name="date"
@@ -430,6 +468,10 @@ const BookPage = () => {
                 onChange={handleChange}
                 className="input text-black placeholder:text-gray-400"
               />
+
+              <label className="block font-semibold mb-2 text-blue-700">
+                Select Time
+              </label>
               <input
                 type="time"
                 name="time"
@@ -449,6 +491,7 @@ const BookPage = () => {
                   accept=".pdf,.png,.jpg,.jpeg"
                   onChange={handleFileChange}
                   className="input p-2 file:bg-blue-600 file:text-white file:rounded-md file:px-4 file:py-2 file:mr-4 file:border-0"
+                  maxLength={10 * 1024 * 1024} // 10MB in bytes
                 />
                 {file && (
                   <p className="text-sm text-gray-600">
