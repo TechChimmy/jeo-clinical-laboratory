@@ -30,7 +30,7 @@ const Navbar = () => {
           className="relative w-24 h-24 md:w-28 md:h-28"
         >
           <Image
-            src="/logo1.png"
+            src="/logo.png"
             alt="Logo"
             fill
             className="object-contain w-full h-full"
