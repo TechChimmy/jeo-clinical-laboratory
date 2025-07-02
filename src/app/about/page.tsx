@@ -21,7 +21,7 @@ const AboutPage = () => {
     <main className="bg-gradient-to-br from-white to-blue-50 text-gray-800 overflow-x-hidden">
       
       {/* HERO */}
-      <section className="relative h-[70vh] bg-[url('/lab-banner.jpg')] bg-cover bg-center flex items-center justify-center px-4">
+      <section className="relative h-[70vh] md:h-[50vh] xl:h-[70vh] flex items-center justify-center px-4">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/70 to-black/70 z-0" />
         <motion.div
           className="relative z-10 max-w-3xl text-center text-white"

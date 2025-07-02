@@ -47,3 +47,19 @@ body {
   }
 }
 
+.nav-anim::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #155DFC, #6EB8FF);
+  border-radius: 1px;
+  transition: width 0.4s ease-in-out;
+}
+
+.group:hover .nav-anim::after {
+  width: 100%;
+}

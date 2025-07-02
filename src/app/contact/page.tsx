@@ -47,7 +47,7 @@ export default function ContactPage() {
             Contact Us
           </motion.h1>
           <p className="mt-4 text-lg text-gray-700">
-            Reach out to us — we’re here for your health journey.
+            Reach out to us — we&apos;re here for your health journey.
           </p>
         </motion.div>
 
@@ -65,38 +65,46 @@ export default function ContactPage() {
             },
             {
               Icon: Phone,
-              href: "tel:+919790784779",
-              value: "+91 97907 84779",
-              label: "Phone",
+              href: null, // Remove the outer href
+              value: (
+                <div className="space-y-2">
+                  <div>
+                    <a href="tel:+919790784779" className="hover:text-blue-400 transition-colors">+91 97907 84779</a>
+                  </div>
+                  <div>
+                    <a href="tel:+919600144135" className="hover:text-blue-400 transition-colors">+91 96001 44135</a>
+                  </div>
+                  <div>
+                    <a href="tel:+917338760135" className="hover:text-blue-400 transition-colors">+91 73387 60135</a>
+                  </div>
+                </div>
+              ),
+              label: "Phone Numbers",
             },
             {
               Icon: MapPin,
               href: null,
-              value: "123, Health Street, Chennai",
+              value: "20A,Khanishk Complex, VGP Nagar, Mogappair West, Chennai - 600037",
               label: "Location",
             },
           ].map(({ Icon, href, value, label }, i) => (
             <motion.div
               key={i}
-              className="flex flex-col items-center bg-white rounded-xl shadow-md p-6 border border-blue-100 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 ease-in-out"
+              className={`flex flex-col items-center justify-center bg-white rounded-xl shadow-md p-6 border border-blue-100 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 ease-in-out ${
+                href ? 'cursor-pointer' : ''
+              }`}
               initial="hidden"
               whileInView="show"
               variants={fadeUp}
               viewport={{ once: true }}
+              {...(href ? { onClick: () => window.location.href = href } : {})}
             >
               <motion.div variants={iconVariant}>
                 <Icon className="w-7 h-7 text-blue-600 mb-3" />
               </motion.div>
-              {href ? (
-                <a
-                  href={href}
-                  className="text-lg font-medium text-blue-800 hover:text-blue-600 transition cursor-arrow"
-                >
-                  {value}
-                </a>
-              ) : (
-                <p className="text-lg font-medium text-blue-800">{value}</p>
-              )}
+              <div className="text-lg font-medium text-blue-800">
+                {value}
+              </div>
               <p className="text-sm text-gray-600 mt-1">{label}</p>
             </motion.div>
           ))}

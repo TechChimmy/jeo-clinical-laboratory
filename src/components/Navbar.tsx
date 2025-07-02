@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { FaStethoscope } from 'react-icons/fa'; // <-- Add this
+import { FaStethoscope } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,32 +22,46 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 py-3 md:py-0 flex items-center justify-between">
+        
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-blue-600">
-          Jeo Clinical Lab
+        <Link
+          href="/"
+          className="relative w-24 h-24 md:w-28 md:h-28"
+        >
+          <Image
+            src="/logo1.png"
+            alt="Logo"
+            fill
+            className="object-contain w-full h-full"
+            priority
+          />
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 text-gray-700 font-medium">
+        <div className="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`hover:text-blue-600 transition-colors ${
-                pathname === item.href ? 'text-blue-600 font-semibold' : ''
+              className={`relative group transition-all duration-300 ease-in-out ${
+                pathname === item.href
+                  ? 'text-blue-600 font-semibold'
+                  : 'text-gray-700'
               }`}
             >
-              {item.label}
+              <span className="nav-anim group-hover:text-blue-600 group-hover:-translate-y-0.5 group-hover:tracking-wide transition-all duration-300 inline-block">
+                {item.label}
+              </span>
             </Link>
           ))}
         </div>
 
-        {/* Mobile Stethoscope Icon */}
+        {/* Mobile Toggle */}
         <div className="md:hidden">
           <button
             onClick={toggleMenu}
-            className="text-blue-600 text-2xl focus:outline-none"
+            className="text-blue-600 text-2xl"
             aria-label="Toggle menu"
           >
             <FaStethoscope />
@@ -56,15 +71,17 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden px-4 pb-4 space-y-2 text-gray-700 font-medium bg-white shadow-inner animate-slide-down">
+        <div className="md:hidden px-4 pb-4 bg-white shadow-inner text-gray-700 font-medium animate-slide-down space-y-2">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`block py-2 ${
-                pathname === item.href ? 'text-blue-600 font-semibold' : ''
+              className={`block py-2 px-2 rounded transition-colors duration-200 ${
+                pathname === item.href
+                  ? 'text-blue-600 font-semibold bg-blue-50'
+                  : 'hover:text-blue-600 hover:bg-blue-50'
               }`}
-              onClick={() => setMenuOpen(false)} // Close on click
+              onClick={() => setMenuOpen(false)}
             >
               {item.label}
             </Link>

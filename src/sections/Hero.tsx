@@ -17,7 +17,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-br from-white via-blue-50 to-blue-100 py-16 md:py-24 px-4 md:px-12 overflow-hidden pb-0">
+    <section className="relative bg-gradient-to-br from-white via-blue-50 to-blue-100 py-16 md:py-12 xl:py-12 px-4 md:px-12 overflow-hidden pb-0">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Text Content */}
         <motion.div
@@ -26,10 +26,10 @@ const Hero = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-800 leading-tight mb-4 drop-shadow-sm">
+          <h1 className="text-4xl xl:text-5xl font-extrabold text-blue-800 leading-tight mb-4 drop-shadow-sm">
             Accurate. Reliable. Human-Centered Diagnostics.
           </h1>
-          <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
+          <p className="text-gray-700 text-base xl:text-lg leading-relaxed mb-6">
             Welcome to{" "}
             <span className="font-bold text-blue-700">
               Jeo Clinical Laboratory
@@ -41,7 +41,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center md:justify-start w-full md:w-auto">
             <motion.a
               href="/book"
-              className="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-800 hover:scale-105 active:scale-95 transition-all shadow-md text-center"
+              className="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-800 hover:scale-105 active:scale-95 transition-all shadow-md text-center text-lg md:text-base xl:text-lg md:text-nowrap"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -49,7 +49,7 @@ const Hero = () => {
             </motion.a>
             <motion.a
               href="/about"
-              className="border border-blue-700 text-blue-700 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 hover:scale-105 active:scale-95 transition-all shadow-sm text-center"
+              className="border border-blue-700 text-blue-700 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 hover:scale-105 active:scale-95 transition-all shadow-sm text-center text-lg md:text-base xl:text-lg md:text-nowrap"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
